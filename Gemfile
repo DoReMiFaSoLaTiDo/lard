@@ -27,6 +27,13 @@ gem 'devise'
 gem 'bower-rails'
 gem 'angular-rails-templates'
 
+
+#Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+gem 'rack-cors','0.4.0', require: 'rack/cors'
+# json web token gem  to decode, verify and generate JWT
+gem 'jwt','1.5.1'
+gem 'grape'
+
 gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
@@ -36,22 +43,40 @@ gem 'rails_12factor', group: :production
 # gem 'unicorn'
 
 # Use Capistrano for deployment
+gem 'figaro'
+gem 'puma'
 # gem 'capistrano-rails', group: :development
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
+end
+group :test do
+  gem 'faker'
   gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
-ruby "2.0.0"
+ruby "2.2.1"

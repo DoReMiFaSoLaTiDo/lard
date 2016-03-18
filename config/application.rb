@@ -33,5 +33,36 @@ module Lard
 
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components")
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components", "bootstrap-sass-official", "assets", "fonts")
+
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
+    config.generators do |g|
+      g.test_framework :rspec,
+      fixtures: true,
+      view_specs: false,
+      helper_specs: false,
+      routing_specs: false,
+      controller_specs: true,
+      request_specs: true
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+    end
+
+    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+      allow do
+        origins '*'
+
+        resource '/cors',
+          :headers => :any,
+          :methods => [:post],
+          :credentials => true,
+          :max_age => 0
+
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :patch, :head],
+          :max_age => 0
+      end
+    end
   end
 end

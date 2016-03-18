@@ -10,9 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require angular
-//= require angular-animate
-//= require angular-ui-router
+//= require angular/angular
+//= require angular-devise/lib/devise
+//= require angular-animate/angular-animate
+//= require angular-ui-router/release/angular-ui-router
 //= require angular-rails-templates
 //= require jquery
 //= require jquery_ujs

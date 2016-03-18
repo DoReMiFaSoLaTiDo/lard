@@ -1,4 +1,6 @@
 asset 'angular'
+asset 'angular-devise'
 asset 'angular-ui-router'
 asset 'angular-animate'
 asset 'bootstrap-sass-official'
+asset 'angular-devise'
