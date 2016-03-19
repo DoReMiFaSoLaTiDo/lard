@@ -35,7 +35,52 @@ class Team < ActiveRecord::Base
 
   private
 
-    def team_valid?
-      # unless
+    def team_valid?(team)
+      has_gk, has_def, has_fwd = false, false, false
+      goalkeeper_collection = []
+      defender_collection = []
+      forward_collection = []
+
+      team.players.each do |player|
+        goalkeeper_collection << player if player.position == 'GK'
+        defender_collection << player if player.position == 'DF'
+        forward_collection << player if player.position == 'FW'
+      end
+
+      has_gk = true if goalkeeper_collection.size.eql(1)
+      has_def = true if defender_collection.size >= 4
+      has_fwd = true if forward_collection.size >= 1
+
+      return has_gk && has_def && has_fwd
+    end
+
+    def has_goalkeeper?(team)
+      has_gk = false
+      team.players.each do |player|
+        has_gk = true if player.position == 'GK'
+      end
+      return has_gk
+    end
+
+    def has_defenders?(team)
+      has_def = false
+      count = 0
+
+      team.players.each do |player|
+        count += 1 if player.position == 'DF'
+      end
+
+      has_def = true if count >= 4
+      return has_def
+    end
+
+    def has_forward?(team)
+      has_fwd = false
+
+      team.players.each do |player| 
+        has_fwd = true if player.position == 'FW'
+      end
+      return has_fwd
+
     end
 end
