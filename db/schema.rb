@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317165415) do
+ActiveRecord::Schema.define(version: 20160319020324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160317165415) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["player_id"], name: "index_memberships_on_player_id", using: :btree
+  add_index "memberships", ["team_id"], name: "index_memberships_on_team_id", using: :btree
+
   create_table "players", force: :cascade do |t|
     t.string   "player_name"
     t.integer  "club_id"
@@ -46,20 +56,9 @@ ActiveRecord::Schema.define(version: 20160317165415) do
 
   create_table "teams", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "team_name"
-    t.string   "goalkeeper"
-    t.string   "defender_1"
-    t.string   "defender_2"
-    t.string   "defender_3"
-    t.string   "defender_4"
-    t.string   "midfielder_1"
-    t.string   "midfielder_2"
-    t.string   "midfielder_3"
-    t.string   "midfielder_4"
-    t.string   "midfielder_5"
-    t.string   "forward"
   end
 
   add_index "teams", ["user_id"], name: "index_teams_on_user_id", using: :btree
@@ -85,6 +84,8 @@ ActiveRecord::Schema.define(version: 20160317165415) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "clubs", "leagues"
+  add_foreign_key "memberships", "players"
+  add_foreign_key "memberships", "teams"
   add_foreign_key "players", "clubs"
   add_foreign_key "teams", "users"
 end

@@ -1,9 +1,13 @@
 class Player < ActiveRecord::Base
   validates :player_name, presence: true
-  validates :player_name, uniqueness: {scope: :user_id}
   validates :position, presence: true
   belongs_to :club
-  
+
+  has_many :memberships
+  has_many :teams, through: memberships
+  # has_many :users, through: :teans
+  # belongs_to :playable, polymorphic: true
+
   def self.by_position(position)
     where("position = ?", "#{position}").order(:player_name)
   end
@@ -14,6 +18,10 @@ class Player < ActiveRecord::Base
 
   def name
     player_name
+  end
+
+  def position
+    position
   end
 
   def details
