@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :clubs do
     resources :players, shallow: true
   end
+  resources :teams do
+    resources :players, shallow: true
+  end
+  resources :players
   post 'auth' => 'auth#authenticate'
   post 'authenticate' => 'auth#authenticate'
 

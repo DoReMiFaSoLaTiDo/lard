@@ -1,0 +1,19 @@
+<div>
+  <h1>Leagues</h1>
+  <p>Soon this will show a list of all the featured leagues, based on information from the server</p>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <td>League Name</td>
+      <td>Country</td>
+    </thead>
+    <tbody>
+      <tr ng-repeat="league in leagues">
+        <td>{{league.name}}</td>
+        <td>{{league.country}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

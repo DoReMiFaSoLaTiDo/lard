@@ -19,9 +19,19 @@ angular
         controller: 'HomeCtrl'
       })
       .state('club_home', {
-        url: '/myclub',
+        url: '/clubs',
         templateUrl: 'clubs/index.html',
         controller: 'ClubsCtrl'
+      })
+      .state('league_home', {
+        url: '/leagues',
+        templateUrl: 'leagues/index.html',
+        controller: 'LeaguesCtrl'
+      })
+      .state('player_home', {
+        url: '/players',
+        templateUrl: 'players/index.html',
+        controller: 'PlayersCtrl'
       })
       .state('login', {
         url: '/login',
